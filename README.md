@@ -8,6 +8,8 @@ This project was never supposed to exist. It emerged, fully formed, during a rou
 
 Then someone said, "He needs a top hat." Not a regular hat. Not a baseball cap. A *top hat*. And not just any top hat — one that could only be summoned by pressing a button labeled "Award Hat," because a hot dog of this caliber doesn't just *have* a hat. He *earns* it.
 
+Then it escalated. Someone needed to be able to *award* other people. A printable certificate was drafted. Official timestamps were required — in the timezone that produces the most hot dogs on Earth, naturally. The moon phase had to be recorded for archival integrity. A fact modal about Chicago's hot dog heritage was deemed non-negotiable. At no point did anyone ask "should we stop?"
+
 We do not regret anything.
 
 ## Features
@@ -19,6 +21,12 @@ We do not regret anything.
 - Classic mustard zigzag
 - Rotating hot dog puns in a speech bubble
 - A distinguished top hat, bestowed via the **Award Hat** button (he earned it)
+- **The Hot Dog Star** — a printable certificate ceremony complete with:
+  - Confetti burst
+  - Randomized emoji citations
+  - Official Hot Dog Man seal
+  - Timestamp in **Hot Dog Standard Time** (America/Chicago), with an educational modal about why
+  - Current phase of the moon, because of course
 - Zero dependencies. Pure HTML/CSS/JS. As nature intended.
 
 ## Usage
