@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hot Dog Man</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #87CEEB 0%, #f0e68c 100%);
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    overflow: hidden;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: #8B0000;
+    text-shadow: 2px 2px 0 #FFD700;
+    margin-bottom: 1rem;
+    animation: titleBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes titleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .scene {
+    position: relative;
+    width: 300px;
+    height: 500px;
+  }
+
+  /* === BUN (back layer) === */
+  .bun-back {
+    position: absolute;
+    top: 80px;
+    left: 65px;
+    width: 170px;
+    height: 280px;
+    background: #D2A24C;
+    border-radius: 85px 85px 60px 60px;
+    z-index: 1;
+    box-shadow: inset -10px 0 20px rgba(0,0,0,0.1);
+  }
+
+  /* sesame seeds */
+  .seed {
+    position: absolute;
+    width: 8px;
+    height: 5px;
+    background: #F5E6C8;
+    border-radius: 50%;
+    transform: rotate(-30deg);
+  }
+  .seed:nth-child(1) { top: 30px; left: 40px; }
+  .seed:nth-child(2) { top: 20px; left: 90px; transform: rotate(20deg); }
+  .seed:nth-child(3) { top: 50px; left: 120px; transform: rotate(-10deg); }
+  .seed:nth-child(4) { top: 60px; left: 55px; transform: rotate(35deg); }
+  .seed:nth-child(5) { top: 15px; left: 60px; transform: rotate(-45deg); }
+
+  /* === FRANK === */
+  .frank {
+    position: absolute;
+    top: 90px;
+    left: 80px;
+    width: 140px;
+    height: 270px;
+    background: linear-gradient(90deg, #C1440E 0%, #E8652B 40%, #D4561E 100%);
+    border-radius: 70px 70px 50px 50px;
+    z-index: 2;
+  }
+
+  /* === BUN (front halves) === */
+  .bun-left {
+    position: absolute;
+    top: 80px;
+    left: 55px;
+    width: 60px;
+    height: 280px;
+    background: #DAB05E;
+    border-radius: 40px 0 0 40px;
+    z-index: 3;
+    box-shadow: inset 5px 0 15px rgba(255,255,255,0.2);
+  }
+
+  .bun-right {
+    position: absolute;
+    top: 80px;
+    left: 185px;
+    width: 60px;
+    height: 280px;
+    background: #C89840;
+    border-radius: 0 40px 40px 0;
+    z-index: 3;
+    box-shadow: inset -5px 0 15px rgba(0,0,0,0.15);
+  }
+
+  /* === MUSTARD === */
+  .mustard {
+    position: absolute;
+    top: 100px;
+    left: 125px;
+    width: 50px;
+    height: 240px;
+    z-index: 4;
+  }
+
+  .mustard svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* === FACE === */
+  .face {
+    position: absolute;
+    top: 100px;
+    left: 80px;
+    width: 140px;
+    height: 120px;
+    z-index: 5;
+  }
+
+  .eye {
+    position: absolute;
+    top: 30px;
+    width: 22px;
+    height: 26px;
+    background: white;
+    border-radius: 50%;
+    border: 2px solid #333;
+  }
+  .eye::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 6px;
+    width: 10px;
+    height: 10px;
+    background: #222;
+    border-radius: 50%;
+    animation: lookAround 4s ease-in-out infinite;
+  }
+  .eye.left { left: 25px; }
+  .eye.right { right: 25px; }
+
+  @keyframes lookAround {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(3px, -2px); }
+    50% { transform: translate(-2px, 1px); }
+    75% { transform: translate(2px, 2px); }
+  }
+
+  /* eyebrows */
+  .brow {
+    position: absolute;
+    top: 18px;
+    width: 26px;
+    height: 4px;
+    background: #5C3310;
+    border-radius: 2px;
+  }
+  .brow.left {
+    left: 23px;
+    transform: rotate(-8deg);
+  }
+  .brow.right {
+    right: 23px;
+    transform: rotate(8deg);
+  }
+
+  .mouth {
+    position: absolute;
+    top: 72px;
+    left: 42px;
+    width: 56px;
+    height: 28px;
+    border-bottom: 4px solid #333;
+    border-radius: 0 0 30px 30px;
+    animation: smile 3s ease-in-out infinite;
+  }
+
+  @keyframes smile {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.3); }
+  }
+
+  /* cheeks */
+  .cheek {
+    position: absolute;
+    top: 62px;
+    width: 18px;
+    height: 12px;
+    background: rgba(255, 150, 150, 0.4);
+    border-radius: 50%;
+  }
+  .cheek.left { left: 15px; }
+  .cheek.right { right: 15px; }
+
+  /* === ARMS === */
+  .arm {
+    position: absolute;
+    top: 210px;
+    width: 80px;
+    height: 18px;
+    background: linear-gradient(180deg, #E8652B, #C1440E);
+    border-radius: 10px;
+    z-index: 6;
+    transform-origin: 10px center;
+  }
+  .arm.left {
+    left: 0px;
+    transform: rotate(20deg);
+    animation: waveLeft 2s ease-in-out infinite;
+  }
+  .arm.right {
+    right: 0px;
+    transform: rotate(-20deg);
+    transform-origin: 70px center;
+    animation: waveRight 2.5s ease-in-out infinite;
+  }
+
+  /* little gloved hands */
+  .hand {
+    position: absolute;
+    top: -6px;
+    width: 24px;
+    height: 28px;
+    background: white;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+  }
+  .arm.left .hand { left: -14px; }
+  .arm.right .hand { right: -14px; }
+
+  @keyframes waveLeft {
+    0%, 100% { transform: rotate(20deg); }
+    50% { transform: rotate(-10deg); }
+  }
+  @keyframes waveRight {
+    0%, 100% { transform: rotate(-20deg); }
+    50% { transform: rotate(10deg); }
+  }
+
+  /* === LEGS === */
+  .leg {
+    position: absolute;
+    bottom: 55px;
+    width: 20px;
+    height: 90px;
+    background: linear-gradient(180deg, #E8652B, #C1440E);
+    z-index: 6;
+  }
+  .leg.left {
+    left: 110px;
+    border-radius: 0 0 8px 8px;
+    animation: walkLeft 1s ease-in-out infinite;
+    transform-origin: top center;
+  }
+  .leg.right {
+    right: 110px;
+    border-radius: 0 0 8px 8px;
+    animation: walkRight 1s ease-in-out infinite;
+    transform-origin: top center;
+  }
+
+  @keyframes walkLeft {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+  }
+  @keyframes walkRight {
+    0%, 100% { transform: rotate(8deg); }
+    50% { transform: rotate(-8deg); }
+  }
+
+  /* shoes */
+  .shoe {
+    position: absolute;
+    bottom: -10px;
+    width: 34px;
+    height: 16px;
+    background: #8B0000;
+    border-radius: 8px 12px 6px 6px;
+  }
+  .leg.left .shoe { left: -8px; }
+  .leg.right .shoe { right: -8px; }
+
+  /* === GROUND SHADOW === */
+  .shadow {
+    position: absolute;
+    bottom: 10px;
+    left: 70px;
+    width: 160px;
+    height: 20px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 50%;
+    animation: shadowPulse 1s ease-in-out infinite;
+  }
+
+  @keyframes shadowPulse {
+    0%, 100% { transform: scaleX(1); opacity: 0.15; }
+    50% { transform: scaleX(0.9); opacity: 0.2; }
+  }
+
+  /* === SPEECH BUBBLE === */
+  .speech {
+    position: relative;
+    background: white;
+    border: 3px solid #333;
+    border-radius: 20px;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
+    z-index: 10;
+  }
+  .speech::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #333;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* === TOP HAT === */
+  .top-hat {
+    position: absolute;
+    top: 70px;
+    left: 90px;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(-150px) rotate(15deg);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+  }
+  .top-hat.awarded {
+    opacity: 1;
+    transform: translateY(0) rotate(-5deg);
+  }
+  .hat-brim {
+    width: 120px;
+    height: 14px;
+    background: #1a1a2e;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .hat-crown {
+    width: 76px;
+    height: 65px;
+    background: linear-gradient(90deg, #1a1a2e 0%, #2d2d4e 50%, #1a1a2e 100%);
+    border-radius: 6px 6px 0 0;
+    position: absolute;
+    bottom: 10px;
+    left: 22px;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
+  }
+  .hat-band {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: #8B0000;
+  }
+
+  /* === AWARD BUTTON === */
+  .award-btn {
+    padding: 14px 28px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #8B0000, #cc3333);
+    border: 3px solid #5a0000;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #5a0000, 0 6px 12px rgba(0,0,0,0.2);
+    transition: all 0.15s ease;
+    position: relative;
+    z-index: 10;
+  }
+  .award-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #5a0000, 0 8px 16px rgba(0,0,0,0.25);
+  }
+  .award-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #5a0000, 0 3px 6px rgba(0,0,0,0.2);
+  }
+  .award-btn.awarded {
+    background: linear-gradient(135deg, #2e7d32, #4caf50);
+    border-color: #1b5e20;
+    box-shadow: 0 4px 0 #1b5e20, 0 6px 12px rgba(0,0,0,0.2);
+  }
+
+  /* === BUTTONS ROW === */
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .star-btn {
+    padding: 14px 28px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #b8860b, #ffd700);
+    border: 3px solid #8b6914;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #8b6914, 0 6px 12px rgba(0,0,0,0.2);
+    transition: all 0.15s ease;
+  }
+  .star-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #8b6914, 0 8px 16px rgba(0,0,0,0.25);
+  }
+  .star-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #8b6914, 0 3px 6px rgba(0,0,0,0.2);
+  }
+
+  /* === NAME MODAL === */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 400px;
+    width: 90%;
+  }
+  .modal h2 {
+    color: #8B0000;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+  }
+  .modal p {
+    color: #555;
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+  }
+  .modal input {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 1.1rem;
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .modal input:focus { border-color: #ffd700; }
+  .modal-buttons {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+    justify-content: center;
+  }
+  .modal-go {
+    padding: 10px 24px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #b8860b, #ffd700);
+    border: 2px solid #8b6914;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .modal-cancel {
+    padding: 10px 24px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 1rem;
+    color: #666;
+    background: #eee;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  /* === CERTIFICATE OVERLAY === */
+  .cert-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .cert-overlay.active { display: flex; }
+
+  .certificate {
+    background: #fffef5;
+    border: 8px double #b8860b;
+    outline: 3px solid #daa520;
+    outline-offset: 6px;
+    border-radius: 8px;
+    padding: 3rem 3.5rem;
+    text-align: center;
+    max-width: 600px;
+    width: 95%;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    animation: certAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes certAppear {
+    from { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  .cert-star {
+    font-size: 4rem;
+    animation: starSpin 1s ease-out;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  @keyframes starSpin {
+    from { transform: rotate(0deg) scale(0); }
+    50% { transform: rotate(360deg) scale(1.3); }
+    to { transform: rotate(720deg) scale(1); }
+  }
+
+  .cert-title {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 1.6rem;
+    color: #8B0000;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .cert-name {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 2.2rem;
+    color: #333;
+    font-style: italic;
+    margin-bottom: 0.3rem;
+  }
+
+  .cert-obtained {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 1.4rem;
+    color: #b8860b;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+
+  .cert-citation {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 1rem;
+    color: #555;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .cert-date {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 0.4rem;
+  }
+  .cert-meta {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-bottom: 0.3rem;
+  }
+  .cert-meta:last-of-type {
+    margin-bottom: 1.5rem;
+  }
+  .hdst-hint {
+    border-bottom: 1px dashed #b8860b;
+    cursor: pointer;
+    color: #b8860b;
+    transition: color 0.2s;
+  }
+  .hdst-hint:hover {
+    color: #8B0000;
+    border-bottom-color: #8B0000;
+  }
+
+  .cert-seal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.2rem;
+  }
+  .seal-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px double #b8860b;
+    background: #fffef0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 0 2px #daa520, 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .seal-bun-left {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: 18px;
+    height: 60px;
+    background: #DAB05E;
+    border-radius: 12px 0 0 12px;
+    z-index: 2;
+  }
+  .seal-bun-right {
+    position: absolute;
+    bottom: 0;
+    right: 7px;
+    width: 18px;
+    height: 60px;
+    background: #C89840;
+    border-radius: 0 12px 12px 0;
+    z-index: 2;
+  }
+  .seal-frank {
+    position: absolute;
+    bottom: 0;
+    left: 14px;
+    width: 48px;
+    height: 60px;
+    background: linear-gradient(90deg, #C1440E 0%, #E8652B 40%, #D4561E 100%);
+    border-radius: 24px 24px 16px 16px;
+    z-index: 1;
+  }
+  .seal-mustard {
+    position: absolute;
+    bottom: 8px;
+    left: 32px;
+    width: 10px;
+    height: 40px;
+    z-index: 3;
+  }
+  .seal-mustard svg {
+    width: 100%;
+    height: 100%;
+  }
+  .seal-eye {
+    position: absolute;
+    top: 24px;
+    width: 10px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    border: 1.5px solid #333;
+    z-index: 3;
+  }
+  .seal-eye::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    width: 5px;
+    height: 5px;
+    background: #222;
+    border-radius: 50%;
+  }
+  .seal-eye-l { left: 23px; }
+  .seal-eye-r { right: 21px; }
+  .seal-mouth {
+    position: absolute;
+    top: 42px;
+    left: 26px;
+    width: 26px;
+    height: 12px;
+    border-bottom: 2.5px solid #333;
+    border-radius: 0 0 14px 14px;
+    z-index: 3;
+  }
+  .seal-label {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 0.7rem;
+    color: #b8860b;
+    margin-top: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .cert-buttons {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+  }
+  .cert-print {
+    padding: 10px 24px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #2e7d32, #4caf50);
+    border: 2px solid #1b5e20;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .cert-close {
+    padding: 10px 24px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 1rem;
+    color: #666;
+    background: #eee;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  /* confetti */
+  .confetti-piece {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    z-index: 250;
+    pointer-events: none;
+    animation: confettiFall 3s ease-in forwards;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* print styles */
+  @media print {
+    body * { visibility: hidden; }
+    .certificate, .certificate * { visibility: visible; }
+    .certificate {
+      position: fixed;
+      inset: 0;
+      margin: auto;
+      box-shadow: none;
+      animation: none;
+    }
+    .cert-buttons { display: none; }
+    .confetti-piece { display: none; }
+  }
+
+  /* === CREDITS === */
+  .credits {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    text-align: center;
+    color: #5a3e1b;
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+  .credits strong {
+    font-size: 0.95rem;
+  }
+</style>
+</head>
+<body>
+
+  <h1>HOT DOG MAN</h1>
+
+  <div class="speech" id="speech">I'm a hot dog and I'm okay!</div>
+
+  <div class="scene">
+    <!-- Top Hat -->
+    <div class="top-hat" id="topHat">
+      <div class="hat-crown"><div class="hat-band"></div></div>
+      <div class="hat-brim"></div>
+    </div>
+
+    <!-- Shadow -->
+    <div class="shadow"></div>
+
+    <!-- Bun back -->
+    <div class="bun-back">
+      <div class="seed"></div>
+      <div class="seed"></div>
+      <div class="seed"></div>
+      <div class="seed"></div>
+      <div class="seed"></div>
+    </div>
+
+    <!-- Frank -->
+    <div class="frank"></div>
+
+    <!-- Bun sides -->
+    <div class="bun-left"></div>
+    <div class="bun-right"></div>
+
+    <!-- Mustard zigzag -->
+    <div class="mustard">
+      <svg viewBox="0 0 50 240" preserveAspectRatio="none">
+        <path d="M25,0 L40,20 L10,40 L40,60 L10,80 L40,100 L10,120 L40,140 L10,160 L40,180 L10,200 L40,220 L25,240"
+              fill="none" stroke="#FFD700" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- Face -->
+    <div class="face">
+      <div class="brow left"></div>
+      <div class="brow right"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="cheek left"></div>
+      <div class="cheek right"></div>
+      <div class="mouth"></div>
+    </div>
+
+    <!-- Arms -->
+    <div class="arm left"><div class="hand"></div></div>
+    <div class="arm right"><div class="hand"></div></div>
+
+    <!-- Legs -->
+    <div class="leg left"><div class="shoe"></div></div>
+    <div class="leg right"><div class="shoe"></div></div>
+  </div>
+
+  <div class="buttons">
+    <button class="award-btn" id="awardBtn" onclick="awardHat()">Award Hat</button>
+    <button class="star-btn" onclick="openStarModal()">⭐ Bestow a Hot Dog Star</button>
+  </div>
+
+  <!-- Name Input Modal -->
+  <div class="modal-overlay" id="nameModal">
+    <div class="modal">
+      <h2>⭐ a Hot Dog Star ⭐</h2>
+      <p>Who is worthy of this honor?</p>
+      <input type="text" id="recipientName" placeholder="Enter the chosen one's name" autofocus>
+      <div class="modal-buttons">
+        <button class="modal-go" onclick="bestowStar()">Bestow</button>
+        <button class="modal-cancel" onclick="closeStarModal()">Nevermind</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certificate Overlay -->
+  <div class="cert-overlay" id="certOverlay">
+    <div class="certificate" id="certificate">
+      <span class="cert-star">🌟</span>
+      <div class="cert-title">a Hot Dog Star</div>
+      <div class="cert-name" id="certName"></div>
+      <div class="cert-obtained">🌭✨ You have obtained a HOT DOG STAR ✨🌭</div>
+      <div class="cert-citation" id="certCitation"></div>
+      <div class="cert-date" id="certDate"></div>
+      <div class="cert-meta" id="certTime">🌭🕐 <span id="certClockValue"></span> <span class="hdst-hint" onclick="openHdstModal()">Hot Dog Standard Time</span> 🕐🌭</div>
+      <div class="cert-meta" id="certMoon"></div>
+      <!-- Official Hot Dog Man Seal -->
+      <div class="cert-seal">
+        <div class="seal-circle">
+          <div class="seal-bun-left"></div>
+          <div class="seal-bun-right"></div>
+          <div class="seal-frank"></div>
+          <div class="seal-mustard">
+            <svg viewBox="0 0 10 40" preserveAspectRatio="none">
+              <path d="M5,0 L8,7 L2,14 L8,21 L2,28 L8,35 L5,40" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="seal-eye seal-eye-l"></div>
+          <div class="seal-eye seal-eye-r"></div>
+          <div class="seal-mouth"></div>
+        </div>
+        <div class="seal-label">Official Seal of Hot Dog Man</div>
+      </div>
+      <div class="cert-buttons">
+        <button class="cert-print" onclick="window.print()">🖨️ Print This Honor</button>
+        <button class="cert-close" onclick="closeCert()">Return to Hot Dog Man</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HDST Info Modal -->
+  <div class="modal-overlay" id="hdstModal" style="z-index: 300">
+    <div class="modal">
+      <h2 style="white-space: nowrap;">🌭 Hot Dog Standard Time 🌭</h2>
+      <p style="text-align: left; line-height: 1.6; color: #555;">
+        Hot Dog Standard Time is set to <strong>America/Chicago (Central Time)</strong> — the heart of the world's hot dog production.
+      </p>
+      <p style="text-align: left; line-height: 1.6; color: #555;">
+        Chicago is home to <a href="https://en.wikipedia.org/wiki/Vienna_Beef" target="_blank" style="color: #b8860b;">Vienna Beef</a> and <a href="https://en.wikipedia.org/wiki/Oscar_Mayer" target="_blank" style="color: #b8860b;">Oscar Mayer</a> (est. 1883), and a metropolitan area that <a href="https://en.wikipedia.org/wiki/Chicago-style_hot_dog" target="_blank" style="color: #b8860b;">consumes more hot dogs</a> than any other US city. The greater Midwest region accounts for an estimated <strong>2+ billion hot dogs per year</strong>.
+      </p>
+      <p style="text-align: left; line-height: 1.6; color: #555;">
+        All Hot Dog Star timestamps are recorded in this timezone for archival integrity. 🌭
+      </p>
+      <div class="modal-buttons">
+        <button class="modal-cancel" onclick="closeHdstModal()">I understand and I am humbled</button>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.75rem; color: #aaa; font-style: italic;">"A Hot Dog Man Fact You Can Rely On"</p>
+    </div>
+  </div>
+
+  <div class="credits">
+    <strong>Mattie & Claude</strong><br>
+    "It's incredible what we can do."
+  </div>
+
+  <script>
+    function awardHat() {
+      const hat = document.getElementById('topHat');
+      const btn = document.getElementById('awardBtn');
+      const isAwarded = hat.classList.toggle('awarded');
+      btn.classList.toggle('awarded');
+      btn.textContent = isAwarded ? 'Hat Awarded. He earned it.' : 'Award Hat';
+    }
+
+    // === HOT DOG STAR CEREMONY ===
+    const citations = [
+      "🌭🔥💯✨🏆👑🎉🫡",
+      "⭐🌟💫✨⭐🌟💫✨⭐",
+      "🎺🎺🎺🌭👑🎺🎺🎺",
+      "🥇🌭🥇🌭🥇🌭🥇",
+      "✨👏🌭👏✨👏🌭👏✨",
+      "🚀🌭💥⭐💥🌭🚀",
+      "👑✨🌭✨👑✨🌭✨👑",
+      "🎉🎊🌭🏅🌭🎊🎉",
+      "🫡🫡🫡🌭🫡🫡🫡",
+      "💎🌭💎🌭💎🌭💎",
+    ];
+
+    function openStarModal() {
+      document.getElementById('nameModal').classList.add('active');
+      document.getElementById('recipientName').value = '';
+      setTimeout(() => document.getElementById('recipientName').focus(), 100);
+    }
+
+    function closeStarModal() {
+      document.getElementById('nameModal').classList.remove('active');
+    }
+
+    function bestowStar() {
+      const name = document.getElementById('recipientName').value.trim();
+      if (!name) {
+        document.getElementById('recipientName').style.borderColor = '#cc3333';
+        document.getElementById('recipientName').placeholder = 'A name is required for the archives';
+        return;
+      }
+      closeStarModal();
+
+      // fill certificate
+      document.getElementById('certName').textContent = name;
+      document.getElementById('certCitation').textContent =
+        citations[Math.floor(Math.random() * citations.length)];
+      const now = new Date();
+      document.getElementById('certDate').textContent =
+        'Bestowed on this ' + now.toLocaleDateString('en-US', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+      // Official Hot Dog Timezone (Chicago — world's top hot dog producer region)
+      const chicagoTime = now.toLocaleTimeString('en-US', {
+        timeZone: 'America/Chicago', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+      });
+
+      // Moon phase calculation (synodic period approximation)
+      const moonPhases = [
+        '🌑 New Moon', '🌒 Waxing Crescent', '🌓 First Quarter', '🌔 Waxing Gibbous',
+        '🌕 Full Moon', '🌖 Waning Gibbous', '🌗 Last Quarter', '🌘 Waning Crescent'
+      ];
+      const knownNew = new Date(2000, 0, 6, 18, 14); // known new moon
+      const synodicPeriod = 29.53058867;
+      const daysSinceNew = (now - knownNew) / (1000 * 60 * 60 * 24);
+      const lunarAge = ((daysSinceNew % synodicPeriod) + synodicPeriod) % synodicPeriod;
+      const phaseIndex = Math.floor((lunarAge / synodicPeriod) * 8) % 8;
+
+      document.getElementById('certClockValue').textContent = chicagoTime;
+      document.getElementById('certMoon').textContent =
+        '✨🔭 ' + moonPhases[phaseIndex] + ' 🔭✨';
+
+      // confetti burst
+      launchConfetti();
+
+      // reveal certificate
+      document.getElementById('certOverlay').classList.add('active');
+    }
+
+    function closeCert() {
+      document.getElementById('certOverlay').classList.remove('active');
+      document.querySelectorAll('.confetti-piece').forEach(c => c.remove());
+    }
+
+    function launchConfetti() {
+      const colors = ['#FFD700', '#FF6347', '#8B0000', '#4CAF50', '#FF69B4', '#00BFFF', '#FFA500'];
+      for (let i = 0; i < 80; i++) {
+        const piece = document.createElement('div');
+        piece.classList.add('confetti-piece');
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.top = -10 + 'px';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        piece.style.width = (6 + Math.random() * 8) + 'px';
+        piece.style.height = (6 + Math.random() * 8) + 'px';
+        piece.style.animationDelay = (Math.random() * 1.5) + 's';
+        piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+        document.body.appendChild(piece);
+      }
+      setTimeout(() => {
+        document.querySelectorAll('.confetti-piece').forEach(c => c.remove());
+      }, 5000);
+    }
+
+    // === HDST INFO MODAL ===
+    function openHdstModal() {
+      document.getElementById('hdstModal').classList.add('active');
+    }
+    function closeHdstModal() {
+      document.getElementById('hdstModal').classList.remove('active');
+    }
+
+    // allow Enter key in modal
+    document.getElementById('recipientName').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') bestowStar();
+      if (e.key === 'Escape') closeStarModal();
+    });
+
+    const quotes = [
+      "I'm a hot dog and I'm okay!",
+      "Relish the moment!",
+      "I'm on a roll!",
+      "Frankly, I'm delicious.",
+      "Ketchup with me if you can!",
+      "Life is bun-derful!",
+      "You're the wurst! (jk, love you)",
+      "No buns about it!",
+      "I mustard-mit, I look good.",
+      "END OF LINE... of condiments."
+    ];
+    const el = document.getElementById('speech');
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % quotes.length;
+      el.style.opacity = 0;
+      setTimeout(() => {
+        el.textContent = quotes[i];
+        el.style.opacity = 1;
+      }, 300);
+    }, 3500);
+  </script>
+</body>
+</html>
