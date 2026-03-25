@@ -869,7 +869,7 @@
       <span class="cert-star">🌟</span>
       <div class="cert-title">a Hot Dog Star</div>
       <div class="cert-name" id="certName"></div>
-      <div class="cert-obtained">🌭✨ You have obtained a HOT DOG STAR ✨🌭</div>
+      <div class="cert-obtained">🌭✨🌭<br>You have obtained a<br>HOT DOG STAR<br>🌭✨🌭</div>
       <div class="cert-citation" id="certCitation"></div>
       <div class="cert-date" id="certDate"></div>
       <div class="cert-meta" id="certTime">🌭🕐 <span id="certClockValue"></span> <span class="hdst-hint" onclick="openHdstModal()">Hot Dog Standard Time</span> 🕐🌭</div>
@@ -972,7 +972,7 @@
       const now = new Date();
       document.getElementById('certDate').textContent =
         'Bestowed on this ' + now.toLocaleDateString('en-US', {
-          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+          timeZone: 'America/Chicago', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
         });
 
       // Official Hot Dog Timezone (Chicago — world's top hot dog producer region)
