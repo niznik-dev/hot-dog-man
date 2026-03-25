@@ -1,10 +1,19 @@
 # Hot Dog Man
 
+![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)
+![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
+![Built With](https://img.shields.io/badge/built%20with-pure%20CSS-ff69b4)
+![Mustard](https://img.shields.io/badge/mustard-yellow-yellow)
+![Hat Status](https://img.shields.io/badge/hat-earned-gold)
+![PRs](https://img.shields.io/badge/PRs-he's%20perfect-red)
+
 A fully animated, CSS-powered hot dog person of extraordinary dignity and poise.
 
-**[See him live](https://niznik-dev.github.io/hot-dog-man/)**
+**[See him live](https://niznik-dev.github.io/hot-dog-man/)**\*
 
-![Hot Dog Man screenshot](hot-dog-man.png)
+\*We noticed too late that "see him live" is a perfect homograph. Is he *live*, as in broadcasting right now from a studio in downtown Chicago? Or is he *living*, as in seizing the day, walking boldly into the sun on little red shoes? The answer is yes. He is doing both. He contains multitudes. He is "Hot Dog Man."
+
+<img src="hot-dog-man.png" alt="Hot Dog Man screenshot" width="300">
 
 ## Origin Story
 
